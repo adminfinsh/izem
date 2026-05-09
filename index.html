@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IZEM Coffee Boost</title>
+  <link rel="icon" href="/favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root{
+      --bg:#0c0b0b;
+      --bronze:#c07a4a;
+      --copper:#d79a6c;
+      --text:#f4f1ee;
+      --muted:#b1a79d;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:'Sora',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      min-height:200vh;
+      overflow-x:hidden;
+    }
+    .background{
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(60% 50% at 30% 20%, rgba(192,122,74,0.35), transparent 60%),
+        radial-gradient(50% 40% at 70% 80%, rgba(153,93,57,0.35), transparent 60%),
+        linear-gradient(120deg, #0b0a0a 10%, #13110f 45%, #0b0a0a 90%);
+      z-index:-3;
+    }
+    .silk{
+      position:fixed;
+      inset:-20% -20%;
+      background:
+        radial-gradient(40% 30% at 20% 40%, rgba(208,136,84,0.22), transparent 60%),
+        radial-gradient(30% 25% at 80% 55%, rgba(160,92,60,0.22), transparent 60%);
+      filter:blur(40px);
+      opacity:.8;
+      z-index:-2;
+    }
+    .nav{
+      position:fixed;
+      top:0;left:0;right:0;
+      padding:22px 6vw;
+      display:flex;align-items:center;justify-content:space-between;
+      z-index:20;
+      backdrop-filter: blur(8px);
+    }
+    .logo{
+      font-family:'Oswald',sans-serif;
+      letter-spacing:4px;
+      font-size:22px;
+      font-weight:700;
+    }
+    .nav-links{
+      display:flex;gap:26px;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      color:var(--muted);
+    }
+    .nav-links a{color:inherit;text-decoration:none;transition:color .2s;}
+    .nav-links a:hover{color:#fff;}
+    .nav-icons{display:flex;gap:14px;}
+    .nav-icons .icon{
+      width:34px;height:34px;border-radius:8px;
+      border:1px solid rgba(255,255,255,0.15);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--copper);
+      font-size:14px;
+      background:rgba(255,255,255,0.03);
+      transition:transform .2s, border .2s;
+    }
+    .nav-icons .icon:hover{transform:translateY(-2px);border-color:rgba(255,255,255,0.4);}
+
+    .hero{
+      position:relative;
+      min-height:180vh;
+      padding-top:120px;
+    }
+    .headline{
+      position:fixed;
+      top:28vh;left:6vw;right:6vw;
+      font-family:'Oswald',sans-serif;
+      font-size:12vw;
+      letter-spacing:1.5vw;
+      font-weight:700;
+      text-transform:uppercase;
+      color:rgba(255,255,255,0.05);
+      text-align:center;
+      z-index:-1;
+      pointer-events:none;
+    }
+    .center-stage{
+      position:sticky;
+      top:90px;
+      height:80vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:24px;
+    }
+    .can-wrap{
+      position:relative;
+      width:340px;
+      height:720px;
+      display:flex;align-items:center;justify-content:center;
+      transform-style:preserve-3d;
+    }
+    .can{
+      width:100%;
+      height:auto;
+      filter: drop-shadow(0 40px 60px rgba(0,0,0,0.6));
+      transform:rotateY(var(--ry)) rotateX(-4deg);
+      transition:transform .08s linear;
+    }
+    .floating{
+      position:absolute;
+      width:40px;height:40px;border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #5b3b26, #1c140f 70%);
+      box-shadow:0 8px 20px rgba(0,0,0,0.6);
+      opacity:.9;
+      animation:float 6s ease-in-out infinite;
+    }
+    .floating.choco{
+      border-radius:8px;
+      width:34px;height:34px;
+      background:linear-gradient(145deg, #3b2418, #1d120d);
+    }
+    .floating.b1{top:15%;left:-10%;animation-delay:-1s;}
+    .floating.b2{bottom:25%;left:5%;animation-delay:-3s;}
+    .floating.b3{top:20%;right:-12%;animation-delay:-2s;}
+    .floating.b4{bottom:30%;right:-8%;animation-delay:-4s;}
+    .floating.c1{top:50%;left:-15%;animation-delay:-2.5s;}
+    .floating.c2{top:45%;right:-14%;animation-delay:-3.5s;}
+
+    @keyframes float{
+      0%,100%{transform:translateY(0) translateX(0);}
+      50%{transform:translateY(-20px) translateX(8px);}
+    }
+
+    .subtext{
+      text-align:center;
+      max-width:640px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.6;
+    }
+    .cta{
+      display:flex;gap:16px;flex-wrap:wrap;justify-content:center;
+    }
+    .btn{
+      padding:12px 24px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.2);
+      background:rgba(255,255,255,0.05);
+      color:#fff;text-decoration:none;
+      text-transform:uppercase;font-size:12px;letter-spacing:2px;
+      transition:all .2s;
+    }
+    .btn.primary{
+      background:linear-gradient(120deg, #9c5b35, #d89f72);
+      border:none;color:#0d0b0a;font-weight:600;
+    }
+    .btn:hover{transform:translateY(-2px);}
+
+    .scroll-guide{
+      position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+      font-size:12px;letter-spacing:2px;color:var(--muted);
+      text-transform:uppercase;
+      display:flex;align-items:center;gap:10px;
+    }
+    .scroll-guide span{
+      display:inline-block;width:28px;height:28px;border-radius:50%;
+      border:1px solid rgba(255,255,255,0.2);
+      display:flex;align-items:center;justify-content:center;
+    }
+
+    @media(max-width:900px){
+      .nav-links{display:none;}
+      .headline{font-size:16vw;letter-spacing:1vw;}
+      .can-wrap{width:240px;height:540px;}
+    }
+    @media(max-width:600px){
+      .nav{padding:18px 5vw;}
+      .hero{padding-top:100px;}
+      .subtext{padding:0 8vw;}
+      .cta{gap:10px;}
+    }
+  </style>
+  <script data-arena-recording="true">(function(){
+"use strict";
+var SK="__arena_rec",RRWEB_CDN="https://cdn.jsdelivr.net/npm/rrweb@2.0.0-alpha.4/dist/rrweb.min.js";
+var MAX_RECORDING_MS=600000,MAX_RRWEB_EVENTS=30000,MAX_INTERACTIONS=5000,MAX_CURSOR_POINTS=10000,recStopped=false;
+var stored=null;try{var raw=sessionStorage.getItem(SK);if(raw)stored=JSON.parse(raw);}catch(ex){}
+var meta=stored?stored.m||null:null,rrwebEvents=stored?stored.r||[]:[],rrwebStarted=false,startTime=stored?stored.st||Date.now():Date.now();
+var interactions=stored?stored.i||[]:[],cursorPath=stored?stored.c||[]:[],lastCursorSample=0,lastScrollSample=0;
+var pageHeight=document.documentElement.scrollHeight;
+var viewport={width:window.innerWidth,height:window.innerHeight};
+function isCapped(){if(recStopped)return true;if(Date.now()-startTime>=MAX_RECORDING_MS){recStopped=true;return true;}return false;}
+function persist(){try{var d=JSON.stringify({r:rrwebEvents,i:interactions,c:cursorPath,m:meta,st:startTime});sessionStorage.setItem(SK,d);}catch(ex){rrwebEvents=rrwebEvents.slice(Math.floor(rrwebEvents.length/2));try{sessionStorage.setItem(SK,JSON.stringify({r:rrwebEvents,i:interactions,c:cursorPath,m:meta,st:startTime}));}catch(ex2){}}}
+setInterval(persist,5000);
+window.addEventListener("resize",function(){viewport={width:window.innerWidth,height:window.innerHeight};pageHeight=document.documentElement.scrollHeight;});
+document.addEventListener("click",function(e){if(isCapped()||interactions.length>=MAX_INTERACTIONS)return;var el=e.target;var tag=el.tagName?el.tagName.toLowerCase():"";var text=(el.textContent||"").trim().substring(0,80);var classes=el.className&&typeof el.className==="string"?el.className.substring(0,120):"";interactions.push({type:"click",t:Date.now()-startTime,x:Math.round(e.clientX),y:Math.round(e.clientY),element:{tag:tag,text:text,classes:classes}});},true);
+window.addEventListener("scroll",function(){if(isCapped()||interactions.length>=MAX_INTERACTIONS)return;var now=Date.now();if(now-lastScrollSample<200)return;lastScrollSample=now;var scrollY=Math.round(window.scrollY||window.pageYOffset||0);var depthPct=pageHeight>viewport.height?Math.min(100,Math.round(((scrollY+viewport.height)/pageHeight)*100)):100;interactions.push({type:"scroll",t:now-startTime,y:scrollY,depth_pct:depthPct});},{passive:true});
+document.addEventListener("mousemove",function(e){if(isCapped()||cursorPath.length>=MAX_CURSOR_POINTS)return;var now=Date.now();if(now-lastCursorSample<250)return;lastCursorSample=now;cursorPath.push([Math.round(e.clientX),Math.round(e.clientY),now-startTime]);},{passive:true});
+document.addEventListener("keydown",function(e){if(isCapped()||interactions.length>=MAX_INTERACTIONS)return;if(e.target&&(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA"))return;interactions.push({type:"keydown",t:Date.now()-startTime,key:e.key});},true);
+function buildAnalytics(){if(!meta)return null;var ph=document.documentElement.scrollHeight;var maxScroll=0,clickElements={},firstClick=null,firstScroll=null,totalDistance=0;for(var i=0;i<interactions.length;i++){var ev=interactions[i];if(ev.type==="scroll"){if(ev.depth_pct>maxScroll)maxScroll=ev.depth_pct;if(!firstScroll)firstScroll=ev.t;}if(ev.type==="click"){if(!firstClick)firstClick=ev.t;var key=ev.element.tag+":"+ev.element.text.substring(0,30);clickElements[key]=true;}}for(var j=1;j<cursorPath.length;j++){var dx=cursorPath[j][0]-cursorPath[j-1][0];var dy=cursorPath[j][1]-cursorPath[j-1][1];totalDistance+=Math.sqrt(dx*dx+dy*dy);}var duration=Date.now()-startTime;var clickHeatmap=[];for(var k=0;k<interactions.length;k++){if(interactions[k].type==="click")clickHeatmap.push([interactions[k].x,interactions[k].y]);}return{generation_id:meta.generationId,tournament_id:meta.tournamentId,started_at:new Date(startTime).toISOString(),ended_at:new Date().toISOString(),duration_ms:duration,viewport:viewport,page_height:ph,interactions:interactions,cursor_path:cursorPath,click_heatmap:clickHeatmap,summary:{total_clicks:clickHeatmap.length,total_scrolls:interactions.filter(function(e){return e.type==="scroll";}).length,max_scroll_depth_pct:maxScroll,unique_elements_clicked:Object.keys(clickElements).length,time_to_first_click_ms:firstClick,time_to_first_scroll_ms:firstScroll,cursor_distance_px:Math.round(totalDistance),active_time_ms:duration}};}
+function loadRrweb(){if(rrwebStarted)return;rrwebStarted=true;var s=document.createElement("script");s.src=RRWEB_CDN;s.onload=function(){var rec=(window.rrweb&&window.rrweb.record)||window.rrwebRecord;if(!rec)return;rec({emit:function(event){if(rrwebEvents.length>=MAX_RRWEB_EVENTS||isCapped())return;rrwebEvents.push(event);}});};s.onerror=function(){};document.head.appendChild(s);}
+window.addEventListener("message",function(e){if(!e.data||typeof e.data.type!=="string")return;if(e.data.type==="arena:init"){if(!meta)startTime=Date.now();meta={generationId:e.data.generationId||e.data.modelId,tournamentId:e.data.tournamentId};persist();loadRrweb();if(e.source)e.source.postMessage({type:"arena:init-ack",generationId:meta.generationId},"*");}if(e.data.type==="arena:flush"){var resp={type:"arena:recording-data",generationId:meta?meta.generationId:null,rrwebEvents:rrwebEvents,analytics:buildAnalytics()};try{sessionStorage.removeItem(SK);}catch(ex){}if(e.source)e.source.postMessage(resp,"*");}});
+loadRrweb();
+})();</script>
+  <script data-arena-views="true">(function(){var isTop=false;try{isTop=window.self===window.top;}catch(e){}if(!isTop)return;window.__ARENA_META={generationId:"gpt-5.2-codex",tournamentId:"51ffe8d9-3ee1-4ea3-aefc-1e3de99c88ff"};var payload={tournamentId:"51ffe8d9-3ee1-4ea3-aefc-1e3de99c88ff",modelId:"gpt-5.2-codex"};try{var r=document.referrer;if(r){var u=new URL(r);payload.referrerDomain=u.hostname;}}catch(e){}try{var vid=null;try{vid=localStorage.getItem('arena_vid');}catch(e){}if(!vid){vid=typeof crypto!=="undefined"&&crypto.randomUUID?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2)).slice(0,32);try{localStorage.setItem('arena_vid',vid);}catch(e){}}if(vid)payload.viewerId=vid;}catch(e){}try{fetch("https://www.designarena.ai/api/agon/page-views",{"method":"POST","headers":{"Content-Type":"application/json"},"body":JSON.stringify(payload),"keepalive":true});}catch(e){}})();</script>
+</head>
+<body>
+  <div class="background"></div>
+  <div class="silk"></div>
+
+  <nav class="nav">
+    <div class="logo">IZEM</div>
+    <div class="nav-links">
+      <a href="#story">Story</a>
+      <a href="#blend">Blend</a>
+      <a href="#energy">Energy</a>
+      <a href="#shop">Shop</a>
+    </div>
+    <div class="nav-icons">
+      <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+      <div class="icon"><i class="fa-solid fa-crosshairs"></i></div>
+      <div class="icon"><i class="fa-solid fa-layer-group"></i></div>
+    </div>
+  </nav>
+
+  <div class="headline">COFFEE BOOST</div>
+
+  <main class="hero" id="story">
+    <section class="center-stage">
+      <div class="can-wrap">
+        <img src="public/uploads/upload_1.jpg" alt="IZEM Can" class="can" id="can" />
+        <div class="floating b1"></div>
+        <div class="floating b2"></div>
+        <div class="floating b3"></div>
+        <div class="floating b4"></div>
+        <div class="floating choco c1"></div>
+        <div class="floating choco c2"></div>
+      </div>
+      <p class="subtext">Hyper-realistic matte black aluminum with polished copper accents. Dark roast beans and bitter chocolate orbit the can in a cinematic depth-of-field vibe.</p>
+      <div class="cta" id="shop">
+        <a class="btn primary" href="#">Start Boost</a>
+        <a class="btn" href="#">Explore Ingredients</a>
+      </div>
+    </section>
+  </main>
+
+  <div class="scroll-guide"><span><i class="fa-solid fa-angle-down"></i></span> Scroll to rotate</div>
+
+  <script>
+    const can = document.getElementById('can');
+    function update(){
+      const scrollTop = window.scrollY;
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      const progress = docHeight ? scrollTop / docHeight : 0;
+      const rotation = (progress * 360).toFixed(2);
+      can.style.setProperty('--ry', rotation + 'deg');
+    }
+    update();
+    window.addEventListener('scroll', update);
+  </script>
+</body>
+</html>
